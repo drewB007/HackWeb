@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{font-awesome/css/font-awesome.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/local.css}" />
+
+    <script type="text/javascript" th:src="@{js/jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+
+
+    <style>
+
+        div {
+            padding-bottom:20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home">Back to Dashboard</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li><a href="home"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li><a href="vote"><i class="fa fa-list-ol"></i> Vote</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                            <div th:text="${#authentication.name}" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <i class="fa fa-power-off"></i>
+                                <form th:action="@{/logout}" method="POST">
+                                    <input type="submit" value="Sign Out"/>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div>
+            <div class="row text-center">
+                <h2>You Need To Login To Register Your Vote</h2>
+            </div>
+           <div th:if="${param.error}">
+               <p class="text-danger" >Invalid team name or password.</p>
+           </div>
+           <div th:if="${param.logout}">
+               <div class="alert alert-dismissable alert-warning">
+                   <button data-dismiss="alert" class="close" type="button">&times;</button>
+                   You have been logged out
+                   <br />
+               </div>
+           </div>
+               <form th:action="@{/login}" method="POST">
+                   <div>
+                        <label for="username" class="col-md-2">
+                            Team name
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Team Name"/>
+                        </div>
+                        <div class="col-md-1">
+                            <i class="fa fa-lock fa-2x"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password" class="col-md-2">
+                            Password:
+                        </label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password"/>
+                            <p class="help-block">
+                                Min: 6 characters (Alphanumeric only)
+                            </p>
+                        </div>
+                         <div class="col-md-1">
+                            <i class="fa fa-lock fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-10">
+                            <input type="submit" class="btn btn-info" value="Log In" />
+                                <!--Login-->
+                            <!--</input>-->
+                        </div>
+                    </div>
+               </form>
+        </div>
+    </div>
+
+</body>
+</html>

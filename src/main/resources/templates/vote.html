@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{font-awesome/css/font-awesome.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/local.css}" />
+
+    <script type="text/javascript" th:src="@{js/jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+
+
+    <style>
+
+        div {
+            padding-bottom:20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Back to Dashboard</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li><a href="index"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li><a href="vote"><i class="fa fa-list-ol"></i> Vote</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                            <div th:text="${#authentication.name}" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <i class="fa fa-power-off"></i>
+                                <form th:action="@{/logout}" method="POST">
+                                    <input class="btn btn-primary btn-xs" type="submit" value="Sign Out"/>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div>
+            <div class="row text-center">
+                <h2>Cast Your Team's Vote For This Implementation</h2>
+            </div>
+           <div class="panel-body">
+               <!--<form role="form" th:action="@{/vote}" method="POST" th:object="${vote.value}" commandName="vote" id="voteForm">-->
+               <form role="form" th:action="@{/vote}" method="POST" th:object="${vote}" commandName="vote" id="voteForm">
+                       <div class="form-group">
+                       <label>Add Your Vote</label>
+                       <label class="radio-inline">
+                           <input type="radio" name="value" id="optionsRadiosInline0" path="value" value="0" />
+                           0
+                       </label>
+                       <label class="radio-inline">
+                           <input type="radio" name="value" id="optionsRadiosInline1" path="value" value="1" />
+                           1
+                       </label>
+                       <label class="radio-inline">
+                           <input type="radio" name="value" id="optionsRadiosInline2" path="value" value="2"/>
+                           2
+                       </label>
+                       <label class="radio-inline">
+                           <input type="radio" name="value" id="optionsRadiosInline3" path="value" value="3"/>
+                           3
+                       </label>
+                       <label class="radio-inline">
+                           <input type="radio" name="value" id="optionsRadiosInline4" path="value" value="4"/>
+                           4
+                       </label>
+                       <label class="radio-inline">
+                           <input type="radio" name="value" id="optionsRadiosInline5" path="value" value="5"/>
+                           5
+                       </label>
+                   </div>
+                       <div class="form-group">
+                           <input class="btn btn-primary" type="submit" value="Vote"/>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+
+</body>
+</html>
