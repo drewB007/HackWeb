@@ -8,7 +8,7 @@ import java.util.Date;
 public class Message {
 
     private String type;
-    private Date created = new Date();
+    private Date created;// = new Date();
     private String sender;
     private String text;
     private String formattedText;
@@ -54,5 +54,16 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Message[type=%s, created=%s, sender=%s, text=%s]",
+                this.type,
+                this.created,
+                this.sender,
+                this.text
+        );
     }
 }

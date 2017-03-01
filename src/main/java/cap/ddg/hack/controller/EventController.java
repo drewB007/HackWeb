@@ -1,9 +1,6 @@
 package cap.ddg.hack.controller;
 
-import cap.ddg.hack.model.Event;
-import cap.ddg.hack.model.EventDTO;
-import cap.ddg.hack.model.Team;
-import cap.ddg.hack.model.Vote;
+import cap.ddg.hack.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -38,6 +35,8 @@ public class EventController {
 
     @Value("${api.port}")
     private String apiPort;
+
+
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String initHome(Model model) {
@@ -77,18 +76,44 @@ public class EventController {
         if (result.hasErrors()) {
             return "vote";
         } else {
-            System.out.println(principal.getName() + " called POST: /vote with value: " + vote.getValue());
-            status.setComplete();
-            vote.setFromTeam(principal.getName());
-            String apiURI = "http://"+apiHost + ":" + apiPort + "/api";
+            if(principal.getName().equalsIgnoreCase(thisTeam) ){
+                String apiURI = "http://" + apiHost + ":" + apiPort + "/api";
+                String msgUri = apiURI + "/team/message/" + thisTeam;
+                Message msg = new Message();
+                msg.setSender("Admins");
+                msg.setType("INFO");
+                msg.setText("Nice try but you can't vote for yourself!");
 
-            String uri = apiURI + "/team/" + thisTeam + "/vote/" +principal.getName();
-            RestTemplate restTemplate = new RestTemplate();
+                System.out.println("Sending message: " + msg + " to: " + msgUri);
 
-            ResponseEntity<Vote> st = restTemplate.postForEntity(uri, vote, Vote.class);
+                RestTemplate restTemplate = new RestTemplate();
 
+                ResponseEntity<Message> st1 = null;
+                try {
+                    st1 = restTemplate.postForEntity(msgUri, msg, Message.class);
+                }
+                catch(Exception ex)
+                    {
+                        System.out.println("ex:" + ex.getMessage());
+//                        System.out.println("code:" + st1.getStatusCode());
+//                        System.out.println("str:" + st1.toString());
+//                        System.out.println("body:" + st1.getBody());
+                    }
+            }
+            else {
+                System.out.println(principal.getName() + " called POST: /vote with value: " + vote.getValue());
+                status.setComplete();
+                vote.setFromTeam(principal.getName());
+                String apiURI = "http://" + apiHost + ":" + apiPort + "/api";
+
+                String uri = apiURI + "/team/" + thisTeam + "/vote/" + principal.getName();
+                RestTemplate restTemplate = new RestTemplate();
+
+                ResponseEntity<Vote> st = restTemplate.postForEntity(uri, vote, Vote.class);
+            }
 
             return "redirect:/home";
+//            return "redhome";
         }
     }
 
