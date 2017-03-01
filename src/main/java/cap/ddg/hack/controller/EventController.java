@@ -39,7 +39,6 @@ public class EventController {
     @Value("${api.port}")
     private String apiPort;
 
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String initHome(Model model) {
         String teamName = thisTeam;
@@ -106,11 +105,7 @@ public class EventController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
-    @ResponseBody
-    public String currentUserName3(Principal principal) {
-        return principal.getName();
-    }
+
 
 
 }
