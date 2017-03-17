@@ -36,7 +36,22 @@ public class EventController {
     @Value("${api.port}")
     private String apiPort;
 
+    @Value("${feature.one}")
+    private String f1;
 
+
+    @Value("${feature.two}")
+    private String f2;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String root(Model model) {
+        return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(Model model) {
+        return "redirect:/home";
+    }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String initHome(Model model) {
@@ -44,6 +59,12 @@ public class EventController {
         String apiURI = "http://"+apiHost + ":" + apiPort + "/api";
 
         model.addAttribute("teamName", teamName);
+        model.addAttribute("featureTwo", f2);
+
+        String featureOne = f1;
+        if(featureOne.equalsIgnoreCase("gotcha")){
+            return "comp";
+        }
 
         String uri = apiURI+"/team/" + thisTeam;
         RestTemplate restTemplate = new RestTemplate();
@@ -55,6 +76,7 @@ public class EventController {
         model.addAttribute("totalScore", team.getTotal());
         model.addAttribute("messages", team.getMessages());
         return "index";
+
     }
 
     @RequestMapping(value = "/vote", method = RequestMethod.GET)

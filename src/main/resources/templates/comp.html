@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Hackathon Dashboard</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{font-awesome/css/font-awesome.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/local.css}" />
+
+    <script type="text/javascript" th:src="@{js/jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+
+
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+
+
+
+</head>
+<body>
+    <div id="wrapper">
+          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Admin Panel</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="active" class="nav navbar-nav side-nav">
+                    <li class="selected"><a href="home"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li><a href="vote"><i class="fa fa-list-ol"></i> Vote</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                            <div th:text="${#authentication.name}" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <i class="fa fa-power-off"></i>
+                                <form th:action="@{/logout}" method="POST">
+                                    <input class="btn btn-primary btn-xs" type="submit" value="Sign Out"/>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 th:text="${teamName}"> Dashboard <small>Statistics and more</small></h1>
+                    <div th:if="${#arrays.contains(@environment.getActiveProfiles(),'team.name')}">
+                        <div th:text=""></div>
+                    </div>
+                    <div class="alert alert-dismissable alert-danger">
+                        <button data-dismiss="alert" class="close" type="button">&times;</button>
+                        Oh Snap! It appears you've been hacked
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> No Votes For You Right Now .... </h3>
+                        </div>
+                        <div class="panel-body feed">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+
+
+    <script type="text/javascript">
+
+    </script>
+</body>
+</html>

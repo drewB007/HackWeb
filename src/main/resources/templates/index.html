@@ -20,7 +20,7 @@
 
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" >
           <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -68,13 +68,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Your Current Score </h3>
                         </div>
-                        <div class="panel-body feed">
+                        <div class="panel-body feed-grow">
                             <!--<div class="col-md-4">-->
                                 <div class="bs-example">
                                     <ul class="list-group">
@@ -99,7 +99,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-rss"></i> Message Feed</h3>
                         </div>
-                        <div class="panel-body feed" >
+                        <div class="panel-body feed-grow" >
                             <section class="feed-item" th:each="msg : ${messages}">
                                 <div class="icon pull-left">
                                     <i class="fa fa-comment"></i>
@@ -117,25 +117,44 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Generate Traffic </h3>
-                        </div>
-
-                        <form th:action="@{/event}" method="POST">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="submit" class="btn btn-info" value="Generate" />
-                                    </div>
-                                </div>
+            <div th:switch="${featureTwo}" >
+                <div th:case="banana" class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Generate Traffic </h3>
                             </div>
-                        </form>
+                            <fieldset>
+
+                                <form th:action="@{/event}" method="POST">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="submit" class="btn btn-primary" value="Generate" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div th:case="*" class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Generate Traffic </h3>
+                            </div>
+                            <div class="panel-body">
+                                <p class="text-info">Hmmm? It appears that this feature hasn't arrived yet!</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end switch -->
         </div><!-- /#page-wrapper -->
     </div><!-- /#wrapper -->
 

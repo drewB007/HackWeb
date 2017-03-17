@@ -37,7 +37,28 @@ public class Team {
     }
 
     public List<Message> getMessages() {
-        return messageList;
+        int numOfMsgs = messageList.size();
+        int limit = 10;
+        List<Message> latest = null;
+
+        //System.out.println("numOfMsg: " + numOfMsgs);
+        //System.out.println("limit: " + limit);
+
+        if(numOfMsgs < limit){
+            latest = messageList;
+            //System.out.println("just giving you them all!");
+        }
+        else{
+            int start = numOfMsgs - limit - 1;
+            int end = numOfMsgs - 1;
+            //System.out.println("start: " + start);
+            //System.out.println("end: " + end);
+
+            latest = messageList.subList(start, end);
+
+        }
+
+        return latest;
     }
 
     public void setMessageList(List<Message> messageList) {

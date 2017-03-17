@@ -8,7 +8,7 @@ import java.util.Date;
 public class Message {
 
     private String type;
-    private Date created;// = new Date();
+    private Date created = new Date();
     private String sender;
     private String text;
     private String formattedText;
